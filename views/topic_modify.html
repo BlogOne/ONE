@@ -1,0 +1,142 @@
+{{template "header" .}}
+
+    	<title>编辑文章 - 「一个·轻博客」</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/editormd.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+        <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+</head>
+
+<body style="background-color: #fff;" class="post-template-default single single-post postid-21 single-format-standard" onload="testEditor.unwatch()">
+<noscript>请启用您浏览器的 JavaScript 选项！</noscript>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+		
+		<div class="container">
+			<h2>修改文章</h2>
+			<form method="post" action="/topic">
+				<input type="hidden" name="tid" value="{{.Tid}}">
+				<div class="form-group">
+					<label>文章标题：</label>
+					<input type="text" class="form-control" name="title" value="{{.Topic.Title}}">
+				</div>
+
+                <div class="form-group">
+                    <label>文章分类:</label>
+
+                <div class="row clearfix">
+                    <!-- 获取文章分类-->
+                    <div class="col-md-6 column">
+                        <input id="OldCal" type="text" class="form-control" name="category" value="{{.Topic.Category}}" placeholder=" → 注意！分类不能为空 :）" aria-required="true" required=""> 
+                    </div>
+                    
+                    <!-- 获取分类 列表-->
+                    <div class="col-md-4 column">
+                        <select id="NewCal" class="form-control" name="category">
+                        <option></option>
+                           {{range .Categories}}
+                           <option value="{{.Title}}">{{.Title}}</option>
+                           {{end}}
+                        </select> 
+                        <script language="JavaScript">
+                             $(document).ready(function() {$('#sel').val("Hello");});
+                             //$(document).ready(function() {$("#sel option[value="'Hello'"]").attr("selected","selected");})
+                        </script>
+                    </div>
+              
+                    <div class="col-md-2 column">
+                    <!-- 按钮 事件 -->
+                        <button type="button" class="btn btn-info" onclick="getInf()">选择分类</button>
+                        <script type="text/javascript">
+                            function getInf()
+                                {
+                                    var param = document.getElementById("NewCal").value;
+                                    document.getElementById("OldCal").value = param;
+                                }
+                        </script>
+                    </div>
+                </div>
+<!--获取文章分类 设置默认下拉列表的显示-->
+<!--                 <div class="form-group">
+                    <select id="sel" class="form-control" name="category">
+                        {{range .Categories}}
+                        <option value="{{.Title}}">{{.Title}}</option>
+                        {{end}}
+                    </select> 
+                    <script language="JavaScript">
+                        $(document).ready(function() {
+                            $('#sel').val({{.Topic.Category}});});
+                        //$(document).ready(function() {$("#sel option[value="{{.Topic.Category}}"]").attr("selected","selected");
+                        })
+                    </script>
+                </div> -->
+
+                <!-- </div> -->
+
+                <div class="form-group">
+                <label>摘要：</label>
+                    <textarea class="form-control" rows="3" name="summary" id="summary" 
+                    required="" placeholder=" 在此输入文章简介  (偷偷告诉你哦(&_&)可以吧文章第一段截取过来当做摘要，千万别说是我说的 :)">{{.Topic.Summary}}</textarea>
+                </div>
+
+                <div class="form-group">
+                <br>
+					<label>文章内容：</label>
+                    <div id="test-editormd" style="padding-top: 10px" class="form-group">
+
+                        <textarea name="content" class="form-control" style="display:none;" id="ts">{{.Topic.Content}}</textarea>
+                    </div>
+					<!-- <textarea name="content" cols="30" rows="10" class="form-control" id="editormd">{{.Topic.Content}}</textarea> -->
+                </div>
+
+                <div class="form-group">
+                    <label>文章标签: </label>
+                    <input type="text" name="label" class="form-control" value="{{.Topic.Labels}}" placeholder="添加文章标签，以空格分割。(如：一个 轻博客)" >
+                </div>
+                    
+				<button type="submit" class="btn btn-default">修改文章</button>
+			</form>
+		</div>
+
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/editormd.min.js"></script>
+        <script type="text/javascript">
+        //    调用编辑器
+        var testEditor;
+        $(function() {
+            testEditor = editormd("test-editormd", {
+                // width   : "1000px",
+                height  : 640,
+                emoji: true,
+                syncScrolling : "single",
+                saveHTMLToTextarea: true,
+                path    : "../static/lib/",
+
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/upload",
+                // onload: function () {
+                //     //console.log('onload', this);
+                //     //this.fullscreen();
+                //     //this.unwatch();
+                //     //this.watch().fullscreen();
+
+                //     //this.setMarkdown("#PHP");
+                //     //this.width("100%");
+                //     //this.height(480);
+                //     //this.resize("100%", 640);
+                // }
+            });
+        });
+
+        var blogcontent = encodeURIComponent(testEditor.getMarkdown());
+        </script>
+		{{template "footer" .}}
+
+	</body>
+</html>

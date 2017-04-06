@@ -1,0 +1,132 @@
+{{template "header" .}}
+
+    	<title>添加文章 - 「一个·轻博客」</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/editormd.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+       <!--  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+ -->
+</head>
+
+<body style="background-color: #fff;" class="post-template-default single single-post postid-21 single-format-standard" onload="testEditor.unwatch()">
+<noscript>请启用您浏览器的 JavaScript 选项！</noscript>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+		
+		<div class="container">
+
+			<h1>添加文章</h1>
+			<form method="post" action="/topic">
+				<div class="form-group">
+					<label>文章标题：</label>
+					<input type="text" class="form-control" name="title" placeholder="（必填）" aria-required="true" required="">
+				</div>
+
+            <!--<div class="form-group">
+                <label>文章分类</label>
+                <input type="text" class="form-control" name="category"> 
+                </div> -->
+                <div class="form-group">
+                <label>文章分类:</label>
+                <select class="form-control" name="category">
+                  </option>
+                  {{range .Categories}}
+                  <option>{{.Title}}</option>
+                  {{end}}
+                </select> 
+                </div>
+
+                <div class="form-group">
+                <label>摘要：</label>
+                    <textarea class="form-control" rows="3" name="summary" id="summary" required="" placeholder=" 在此输入文章简介  (偷偷告诉你可以吧文章第一段截取过来当做摘要，千万别说是我说的 :)"></textarea>
+                </div>
+
+				<!-- <div id="test-editormd" style="padding-top: 10px" class="form-group">
+					<label>文章内容：</label>
+					<textarea name="content" cols="30" rows="19" class="form-control" style="display:none;" id="ts" placeholder="在此输入文章正文，文章内容不能为空。 。 。" ></textarea>
+                    <textarea name="content" class="form-control" style="display:none;" id="ts">{{.Topic.Content}}</textarea>
+				</div> -->
+                
+                <label>文章内容：</label>
+                <div id="test-editormd" style="padding-top: 10px" class="form-group">
+
+                    <textarea name="content" class="form-control" style="display:none;" id="ts"></textarea>
+                    
+                </div>
+                <!-- <textarea name="content" cols="30" rows="10" class="form-control" id="editormd">{{.Topic.Content}}</textarea> -->
+            
+                
+                <div class="form-group">
+                    <label>文章标签:</label>
+                    <input type="text" name="label" class="form-control" placeholder="添加文章标签，以空格分割。(如：一个 轻博客)" >
+                </div>
+				<button id="submitId" type="submit" class="btn btn-default">发表</button>
+			</form>
+            <br>
+            <br>
+		</div>
+
+        <script src="/static/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/editormd.min.js"></script>
+		<!-- <script type="text/javascript" src="http://77fkk5.com1.z0.glb.clouddn.com/static/lib/editor.md-1.5.0/editormd.min.js"></script> -->
+        <script type="text/javascript">
+        //    调用编辑器
+        var testEditor;
+        $(function() {
+            testEditor = editormd("test-editormd", {
+                // width   : "1000px",
+                height  : 640,
+                emoji: true,
+                // markdown: markdown,
+                autoFocus: false,
+                //syncScrolling : "single",
+                //unwatch:true,
+                saveHTMLToTextarea : true,
+                placeholder: "Mardkown，提交前请查看预览格式是否正确",
+                path    : "../static/lib/",
+                  imageUpload: true,
+                  imageFormats: ["jpg", "jpeg", "gif", "png"],
+                  imageUploadURL: "/upload",
+                onchange: function() {
+                  $(test-editormd).attr('disabled', this.markdown().trim() == "");
+                }
+            });
+            return testEditor;
+        });
+        </script>
+
+<!--         <script>
+          var editor;
+          $(function() {
+            editormd.urls.atLinkBase = "/member/";
+            editor = createEditorMd("editormd", "#submit");
+          });
+
+          -------
+          function createEditorMd(divId, submitId, markdown) {
+              var editor = editormd(divId, {
+                  height: 400,
+                markdown: markdown,
+                autoFocus: false,
+                  path: "http://77fkk5.com1.z0.glb.clouddn.com/static/lib/editor.md-1.5.0/lib/",
+                placeholder: "Markdown，提交前请查看预览格式是否正确",
+                  toolbarIcons: function() {
+                    return ["undo", "redo", "|", "bold", "italic", "quote", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image", "code", "preformatted-text", "code-block", "|", "goto-line", "watch", "preview", "fullscreen", "|", "help", "info"]
+                  },
+                  saveHTMLToTextarea: true,
+                  imageUpload: true,
+                  imageFormats: ["jpg", "jpeg", "gif", "png"],
+                  imageUploadURL: "/upload/image",
+                onchange: function() {
+                  $(submitId).attr('disabled', this.getMarkdown().trim() == "");
+                }
+                });
+
+            return editor;
+          }
+        </script> -->
+
+	</body>
+</html>

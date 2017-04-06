@@ -1,0 +1,57 @@
+{{template "header" .}}
+
+    	<title>文章 - 「一个·轻博客」</title>
+
+</head>
+
+<body style="background-color: #fff;" class="post-template-default single single-post postid-21 single-format-standard">
+<noscript>请启用您浏览器的 JavaScript 选项！</noscript>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+		
+		<div class="container">
+			<h2>文章列表</h2>
+			{{if .IsLogin}}
+			<a type="submit" class="btn btn-default" href="/topic/add">添加文章</a>
+			{{end}}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<!-- <th>#</th> -->
+						<th>标题</th>
+						<th>更新时间</th>
+						<th>浏览数</th>
+						<th>回复数</th>
+						{{if .IsLogin}}
+						<th>操作</th>
+						{{end}}
+					</tr>
+				</thead>
+				<tbody>
+					{{$IsLogin := .IsLogin}}
+					{{range .Topics}}
+					<tr>
+						<!-- <th>{{.Id}}</th> -->
+						<th><a href="/topic/view/{{.Id}}">{{.Title}}</a></th>
+						<th>{{.Updated}}</th>
+						<th>{{.Views}}</th>
+						<th>{{.ReplyCount}}</th>
+						{{if $IsLogin}}
+						<th>
+							<a href="/topic/modify?tid={{.Id}}">修改</a>
+							<a href="/topic/delete?tid={{.Id}}">删除</a>
+						</th>
+						{{end}}
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+		{{template "footer" .}}
+	</body>
+</html>

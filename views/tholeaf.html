@@ -1,0 +1,218 @@
+{{template "header" .}}
+
+  <title>一个 · 轻博客</title>
+  <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../static/css/animate.min.css" rel="stylesheet">
+  <link href="../static/css/tstyle.min.css" rel="stylesheet">
+
+  <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+
+<div class="container">
+  <div class="col-sm-8">
+  <span class="label label-primary" style="background: #1da1f2">有什么事情想要告诉大家</span>
+
+  <form action="/tholeaf" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <textarea class="form-control" rows="7" name="content" style="margin-top: 0px; margin-bottom: 0px; height: 130px;"></textarea>
+      </div>
+
+      <button type="button" id="btn" class="btn btn-primary" onclick="submit()" style="background: #1da1f2">提交</button>
+      <button type="button" class="btn btn-default btn-sm"  data-toggle="modal" data-target="#picture">
+          <span class="glyphicon glyphicon-plus"></span> 图文轻博
+      </button>
+  </form>
+
+  </br>
+
+
+  <!-- 弹出框，添加图文轻博 -->
+  </br>
+  <div class="modal fade" id="picture" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="myModalLabel" style="color: #1da1f2">
+                添加图文轻博
+              </h4>
+           </div>
+
+           <div class="modal-body">
+       <span class="label label-primary" style="background: #1da1f2">有什么事情想要告诉大家</span>
+       
+       <form action="/tholeaf" method="post" ENCTYPE="multipart/form-data" enctype="multipart/form-data">
+        <textarea class="form-control" rows="7" name="content" ></textarea>
+               <span class="label label-primary" style="background: #1da1f2">上传一张图片</span>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td height="101" >
+        <div id="localImag"><img id="preview" src=""  style=" width:auto; height:auto;"></div>
+      </td>
+    </tr>
+
+    <tr>
+      <td  style="padding-top:10px;">
+        <input type="file" name="file" id="doc" style="width:150px;" onchange="javascript:setImagePreview();">
+      </td>
+    </tr>
+  </tbody>
+  </table>
+
+
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" 
+                 data-dismiss="modal">关闭
+              </button>
+              <button  class="btn btn-primary" style="background: #1da1f2">
+                 提交
+              </button>
+        </form>
+           </div>
+        </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+  </div><!-- 轻博框的整个DIV -->
+
+  <!-- <div class="social-feed-box"> -->
+  {{range .Topics}}
+  <div class="thumbnail caption" contenteditable="true">
+      <div class="pull-right social-action dropdown">
+          <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+              <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu m-t-xs">
+              <li><a href="#">设置</a></li>
+          </ul>
+      </div>
+      <div class="social-avatar">
+          <a href="" class="pull-left">
+              <!-- <img alt="image" src="img/a6.jpg"> -->
+              <img src="http://secure.gravatar.com/avatar/13362ff426428fac06efc5c78a3fbbeb?d=monsterid&amp;r=G&amp;s=50" data-original="http://secure.gravatar.com/avatar/13362ff426428fac06efc5c78a3fbbeb?d=monsterid&amp;r=G&amp;s=50" class="avatar" width="50" height="50" style="display: block;">
+          </a>
+          <div class="media-body">
+              <a href="#">
+                          ONE
+                      </a>
+              <small class="text-muted">8月18日</small>
+          </div>
+      </div>
+      
+      <div class="social-body">
+          <h4>
+              {{.Summary}}
+          </h4>
+
+          <img src="/upload/image/{{.Image}}" class="img-responsive">
+          <div class="btn-group">
+              <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 赞</button>
+              <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> 评论</button>
+              <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> 分享</button>
+          </div>
+      </div>
+      
+      <!-- <div class="social-footer">
+          <div class="social-comment">
+              <a href="" class="pull-left">
+                  <img alt="image" src="img/a1.jpg">
+              </a>
+              <div class="media-body">
+                  <a href="#">
+                              尤小右
+                          </a> Clusterize.js 仅4k大小的js库，可以优化你的大型数据表格的性能，效果非常明显，推荐
+                  <br/>
+                  <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26</a> -
+                  <small class="text-muted">8月18日</small>
+              </div>
+          </div>
+
+          <div class="social-comment">
+              <a href="" class="pull-left">
+                  <img alt="image" src="img/a3.jpg">
+              </a>
+              <div class="media-body">
+                  <textarea class="form-control" placeholder="填写评论..."></textarea>
+              </div>
+          </div>
+      </div> -->
+      
+  </div>
+  {{end}}
+
+</div>
+<!-- container div END! -->
+
+  <script>
+  function submit(){
+    //alert(1);
+  }
+  // function check(){
+  //  var username=$("input[name='username']").val();
+  // // alert(username);
+  //  $.ajax({    
+  //       type:'post',        
+  //       url:'index.php?controller=login&method=check',    
+  //       data:'username'+username,      
+  //       dataType:'json',    
+  //       success:function(data){
+  //       alert(1);
+  //       }    
+  //   });    
+  // }
+  
+  function setImagePreview(avalue) {
+var docObj=document.getElementById("doc");
+ 
+var imgObjPreview=document.getElementById("preview");
+if(docObj.files &&docObj.files[0])
+{
+//火狐下，直接设img属性
+imgObjPreview.style.display = 'block';
+imgObjPreview.style.width = '200px';
+imgObjPreview.style.height = '200px'; 
+//imgObjPreview.src = docObj.files[0].getAsDataURL();
+ 
+//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+}
+else
+{
+//IE下，使用滤镜
+docObj.select();
+var imgSrc = document.selection.createRange().text;
+var localImagId = document.getElementById("localImag");
+//必须设置初始大小
+localImagId.style.width = "200px";
+localImagId.style.height = "200px";
+//图片异常的捕捉，防止用户修改后缀来伪造图片
+try{
+localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+}
+catch(e)
+{
+alert("您上传的图片格式不正确，请重新选择!");
+return false;
+}
+imgObjPreview.style.display = 'none';
+document.selection.empty();
+}
+return true;
+}
+  </script>
+
+{{template "footer" .}}
+
+</body>
+</html>

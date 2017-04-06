@@ -1,0 +1,160 @@
+{{template "header" .}}
+
+    	<title>{{.Topic.Title}} - 「一个·轻博客」</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/editormd.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/static/css/one3.0.css">
+
+
+</head>
+
+<body style="background-color: #fff;" class="post-template-default single single-post postid-21 single-format-standard">
+<noscript>请启用您浏览器的 JavaScript 选项！</noscript>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+		
+		<div class="container">
+        <div class="one-articulo">
+
+			<h2 class="articulo-titulo"> &nbsp;{{.Topic.Title}} 
+            {{if .IsLogin}}
+			<span><small><a href="/topic/modify?tid={{.Id}}">编辑</a></small></span>
+			{{end}}
+            </h2>
+            
+			<br>
+            <p class="articulo-autor">
+                &nbsp;&nbsp;&nbsp;&nbsp;作者/我是白
+            </p>
+
+            <div id="test-editormd" class="articulo-contenido">
+                <textarea style="display:none;" id="ts" class="articulo-contenido">{{.Topic.Content}}</textarea>
+            </div>
+
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_style_24x24 comilla-cerrar" style="float: right;">
+                <br>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a class="jiathis_button_cqq"></a>
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                <a class="jiathis_counter_style"></a>
+                <br>
+            </div>
+
+            </div>
+            <br>
+            <br>
+            <!-- JiaThis Button END -->
+            <!-- Topic结束 -->
+
+            <br>
+            <div class="panel panel-default" id="comments" data-no-instant="">
+
+            <div class="list-group" id="respond">
+            <h4 class="list-group-item">发表评论 </h4>
+
+            <form action="/reply/add" method="post" id="commentform" class="form-horizontal list-group-item" role="form">
+            <input type="hidden" name="tid" value="{{.Topic.Id}}">
+                        <div id="comment-user" data-user-id="0">
+                            <div class="form-group">
+                                <label for="nickname" class="col-sm-2 control-label">名称</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="nickname" id="nickname" value="" placeholder="（必填）" aria-required="true" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">电子邮件</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="email" name="email" id="email" value="" placeholder="（必填）（不会被公开）" aria-required="true" required="">
+                                </div>
+                            </div>
+                        </div>
+                <textarea class="form-control" rows="3" name="comment" id="comment" required=""></textarea>
+                <div id="comment-action" class="btn-toolbar clearfix" role="toolbar">
+                <p class="help-block">欢迎评论，切勿灌水。谢谢！</p>
+
+                        <div class="btn-group">
+                            <button class="btn btn-default" name="submit" type="submit" id="commentsubmit">Submit Comment</button>
+                        </div>
+                </div>
+             
+            </form>
+            <!-- ---------------------------------------------------- -->
+            <br>
+            <!-- ----------------------------------------------------- -->
+
+            <!-- <ul class="list-group commentlist"> -->
+            {{$tid := .Topic.Id}}
+            {{$IsLogin := .IsLogin}}
+            {{range .Replies}}
+
+            <li class="list-group-item respond-title"><cite><a href="" rel="external nofollow" target="_blank">{{.Name}}</a></cite>  </li>
+            <img src="http://secure.gravatar.com/avatar/13362ff426428fac06efc5c78a3fbbeb?d=monsterid&amp;r=G&amp;s=50" data-original="http://secure.gravatar.com/avatar/13362ff426428fac06efc5c78a3fbbeb?d=monsterid&amp;r=G&amp;s=50" class="avatar" width="50" height="50" style="display: block;">
+            
+                <ul id="thread-comments">
+                <li class="comment even thread-even depth-1 list-group-item top" id="comment-2" data-comment-id="2">
+
+                <div class="comment-body">
+                    <!-- <cite><a href="" rel="external nofollow" target="_blank">{{.Name}}</a></cite>   -->     
+                    <div class="comment-content"><p>{{.Comment}}</p>
+                    </div>
+
+                    <div class="comment-meta">
+                        <time datetime="2015-05-21" title="2015年5月21日 下午8:31">{{.Created}}</time> 
+                        {{if $IsLogin}}<span><small><a href="/reply/delete?tid={{$tid}}&rid={{.Id}}">删除</a></small></span>{{end}}
+                    </div>
+                </div>
+                </li>
+                </ul>
+            {{end}}
+
+
+		  </div>
+
+
+        </div>
+
+
+
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/editormd.min.js"></script>
+
+        <script src="/static/lib/marked.min.js"></script>
+        <script src="/static/lib/prettify.min.js"></script>
+        <script src="/static/lib/raphael.min.js"></script>
+        <script src="/static/underscore.min.js"></script>
+        <script src="/static/sequence-diagram.min.js"></script>
+        <script src="/static/flowchart.min.js"></script>
+        <script src="/static/jquery.flowchart.min.js"></script>
+        <script type="text/javascript">
+        //    调用编辑器
+        var testEditor;
+        $(function() {
+            testEditor = editormd.markdownToHTML("test-editormd", {
+                // width   : "1000px",
+                htmlDecode: "style,script,iframe",
+                emoji: true,
+                taskList: true,
+                height  : 640,
+                tex: true,  // 默认不解析
+                flowChart: true,  // 默认不解析
+                sequenceDiagram: true,  // 默认不解析
+                codeFold: true,
+                syncScrolling : "single",
+                path    : "../static/lib/"
+            });
+        });
+        </script>
+        <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+
+		{{template "footer" .}}
+	</body>
+</html>
+

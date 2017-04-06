@@ -1,0 +1,86 @@
+{{template "header" .}}
+
+    <title>「一个 · 轻博客」</title>
+
+</head>
+<body style="background-color: #fafafa;" class="post-template-default single single-post postid-21 single-format-standard">
+<noscript>请启用您浏览器的 JavaScript 选项！</noscript>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+        
+        <div class="container" data-toggle="clingify">
+
+            <div class="col-md-8 panel panel-default panel-archive">
+                {{range .Topics}}
+                <div class="page-header">
+                    <h2 class="entry-title h3"><a href="/topic/view/{{.Id}}">{{.Title}}</a></h2>
+                    <h6 class="text-muted">文章发表于{{.Created}}，共有 {{.Views}} 次浏览， {{.ReplyCount}} 个评论</h6>
+                    <div>
+                        <h5>{{.Summary}} (<a href="/topic/view/{{.Id}}"> 点击查看全文 )</a> </h5>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+
+            <!-- <br> -->
+            <div class="col-md-4 panel panel-default widget clearfix widget_search" >
+            <br>
+            <aside class="panel panel-default widget clearfix widget_tag_cloud" data-offset-top="2730" style="width: auto; position: static; top: 0px;">
+                <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:227px;height:70px;"src="http://www.clocklink.com/html5embed.php?clock=008&timezone=China_Shanghai&color=white&size=227&Title=&Message=&Target=&From=2017,1,1,0,0,0&Color=white"></iframe>
+            </aside>
+                <ul class="list-group-item">
+                <h4>分类</h4>
+                {{range .Categories}}
+                    <li class="list-group-item">
+                    <span class="badge">{{.TopicCount}}</span>
+                    <a href="/?cate={{.Title}}"><h5>{{.Title}}</h5></a>
+                   </li>
+                {{end}}
+                </ul>
+
+            <br>
+            <aside class="panel panel-default widget clearfix widget_tag_cloud" data-offset-top="2730" style="width: auto; position: static; top: 0px;">
+                <h4 class="panel-heading widget-title">标签</h4>
+                <div class="tagcloud">
+                <a href="" class="tag-link-50 tag-link-position-1" title="1个话题" style="font-size: 9pt;">Chrome插件</a>
+                <a href="http://www.codebeta.cn/?tag=google" class="tag-link-51 tag-link-position-2" title="1个话题" style="font-size: 9pt;">Google</a>
+
+            </aside>
+
+            </div>
+            
+        </div>
+
+<!--         <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+        <script>
+          var cloudTieConfig = {
+            url: document.location.href, 
+            sourceId: "",
+            productKey: "2ccb3e6ea82e4aefa5e7e262c8bd7a7d",
+            target: "cloud-tie-wrapper"
+          };
+        </script>
+        <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script> -->
+
+        <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+        
+<!--         <footer class="bs-docs-footer">
+            <div class="row;container">
+                <div class="text-center col-sm-12 col-lg-12">
+                    <p>© 2017 Power By CodeBeta.cn | This page was proudly built with <a href="http://oneisall.xyz">一个·轻博客</a></p>
+                    <p>备案号:<a href="http://www.miitbeian.gov.cn/">沪ICP备0000000号</a></p>
+                </div>
+            </div>
+        </footer> -->
+
+        <!-- UY BEGIN -->
+        <div id="uyan_frame" class="container"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js"></script>
+        <!-- UY END -->
+{{template "footer" .}}
+        
+    </body>
+</html>

@@ -1,0 +1,60 @@
+{{template "header" .}}
+
+         <title>登录 - ONE轻博客</title>
+ 
+</head>
+
+<body style="background-color: #fff;" class="post-template-default single single-post postid-21 single-format-standard">
+<noscript>请启用您浏览器的 JavaScript 选项！</noscript>
+<header>
+{{template "header-bar" .}}       
+</header><!-- #masthead -->
+        
+        <div class="container" data-toggle="clingify" style="width: 400px;position:fixed;left: 0;right: 0;top: 20%;bottom: 0;margin:auto;">
+            <form method="POST" action="/login">
+              <div class="form-group">
+                <label>用户名</label>
+                <!-- <input id="name" type="text" class="form-control" name="uname" placeholder="用户名/邮箱" aria-required="trur">  -->
+                <input type="text" class="form-control" name="uname" placeholder="用户名/邮箱" aria-required="true" required="">
+                <!-- type="email" -->
+              </div>
+              <div class="form-group">
+                <label>密码</label>
+                <input id="pwd" type="password" class="form-control" name="pwd" placeholder="密码" required="">
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="autologin"> 记住我
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary">登 录</button>
+              <button class="btn btn-default" onclick="return backToHome();">返 回</button>
+            </form>
+
+            <script type="text/javascript">
+                function checkInput() {
+                    var name = document.getElementById("name");
+                    if (name.value.length == 0) {
+                        alert("请输入账号");
+                        return false;
+                    }
+
+                    var pwd = document.getElementById('pwd');
+                    if (pwd.value.length == 0){
+                        alert("请输入密码")
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                function backToHome(){
+                    window.location.href="/";
+                    return false;
+                }
+            </script>
+        </div>
+
+    </body>
+</html>
